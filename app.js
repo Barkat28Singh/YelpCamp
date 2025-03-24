@@ -3,7 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const Campground = require("./models/campground"); //requiring the model
 
-mongoose.connect("mongodb://localhost:27017/yelp-camp", {
+mongoose.connect("mongodb://localhost:27017/yelp-camp", {  //connecting the DB
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
