@@ -5,10 +5,7 @@ const Campground = require("../models/campground"); //requiring the model
 const cities = require("./cities");
 const { places, descriptors } = require("./seedHelpers");
 
-mongoose.connect("mongodb://localhost:27017/yelp-camp", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}); //Required by mongoose guidlines as it is the default port at which the db is generated
+mongoose.connect("mongodb://localhost:27017/yelp-camp", {}); //Required by mongoose guidlines as it is the default port at which the db is generated
 
 const db = mongoose.connection; //Formailites for Db connection with our app
 db.on("error", console.error.bind(console, "Connection error"));
@@ -27,10 +24,13 @@ const seedDB = async () => {
   //  //everyhting before c will be deleted and this will be the only entry in the db
   for (let i = 0; i < 50; i++) {
     const randomCity1000 = Math.floor(Math.random() * 1000); //This is selecting a random city from the SEED
+
     const camp = new Campground({
-      location: `${cities[randomCity1000].city}, ${cities[randomCity1000].state}`,
-      title: `${sample(descriptors)}, ${sample(places)}`, //Random places from seeds
+      location: `${cities[randomCity1000].city}${cities[randomCity1000].state}`,
+
+      title: `${sample(descriptors)}${sample(places)}`, //Random places from seeds
     });
+    await camp.save();
   }
 };
 
